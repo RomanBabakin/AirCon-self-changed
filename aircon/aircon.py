@@ -242,6 +242,7 @@ class AcDevice(Device):
         'work_mode': 't_work_mode',
         'power': 't_power',
         'swing_mode': 't_fan_power',
+        'R_vertical_swing_mode': 't_fan_power',
         'temp': 't_temp'
     }
     self.work_modes = ['off', 'fan_only', 'heat', 'cool', 'dry', 'auto']
@@ -449,6 +450,22 @@ class AcDevice(Device):
       return control_value.get_temptype(control)
     else:
       return self.get_property('t_temptype')
+
+  def set_rverticalswing(self, setting: RVerticalSwing) -> None:
+    control = self.get_property('t_swing_angle')
+    control = control_value.clear_up_change_flags(control)
+    if (control):
+      control = control_value.set_rverticalswing(control, setting)
+      self.queue_command('t_swing_angle', control)
+    else:
+      self.queue_command('t_swing_angle', setting)
+
+  def get_rverticalswing(self) -> TemperatureUnit:
+    control = self.get_property('t_swing_angle')
+    if (control):
+      return control_value.get_rverticalswing(control)
+    else:
+      return self.get_property('t_swing_angle')
 
   def set_swing(self, setting: AirFlowState) -> None:
     control = self.get_property("t_control_value")
