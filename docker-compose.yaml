@@ -10,7 +10,7 @@ services:
   hisense_ac:
     depends_on:
       - copy_config
-    image: rmnbb/aircon:0.1
+    image: rmnbb/aircon-mod:0.1
     container_name: hisense_ac_r
     healthcheck:
       disable: true
