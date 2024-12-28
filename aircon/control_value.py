@@ -1,4 +1,4 @@
-from .properties import (AcWorkMode, AirFlow, Economy, FanSpeed, FastColdHeat, Quiet, Power,
+from .properties import (AcWorkMode, AirFlow, Economy, FanSpeed, VertiSweep, FastColdHeat, Quiet, Power,
                          TemperatureUnit)
 
 
@@ -12,6 +12,15 @@ def get_fan_speed(control: int) -> FanSpeed:
 
 
 def set_fan_speed(control: int, value: FanSpeed) -> None:
+  int_val = value.value
+  return (control & ~31) | ((int_val << 1) | 1)
+
+def get_verti_sweep(control: int) -> VertiSweep:
+  int_val = (control >> 1) & 15
+  return VertiSweep(int_val)
+
+
+def set_verti_sweep(control: int, value: VertiSweep) -> None:
   int_val = value.value
   return (control & ~31) | ((int_val << 1) | 1)
 
