@@ -18,6 +18,16 @@ class FanSpeed(enum.IntEnum):
   HIGH = 8
   HIGHER = 9
 
+class RVerticalSwing(enum.IntEnum):
+  0 = 0
+  1 = 1
+  2 = 2
+  3 = 3
+  4 = 4
+  5 = 5
+  6 = 6
+  7 = 7
+
 
 class SleepMode(enum.IntEnum):
   STOP = 0
@@ -253,6 +263,15 @@ class AcProperties(Properties):
                                         'decoder': lambda x: FanSpeed[x]
                                     }
                                 })  # FanSpeed
+    t_swing_angle: RVerticalSwing = field(default=FanSpeed.0,
+                                metadata={
+                                    'base_type': 'integer',
+                                    'read_only': False,
+                                    'dataclasses_json': {
+                                        'encoder': lambda x: x.name,
+                                        'decoder': lambda x: RVerticalSwing[x]
+                                    }
+                                })  # RVerticalSwing
   t_ftkt_start: int = field(default=None, metadata={'base_type': 'integer', 'read_only': False})
   t_power: Power = field(default=Power.ON,
                          metadata={
