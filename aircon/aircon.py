@@ -249,7 +249,7 @@ class AcDevice(Device):
     }
     self.work_modes = ['off', 'fan_only', 'heat', 'cool', 'dry', 'auto']
     self.fan_modes = ['auto', 'lower', 'low', 'medium', 'high', 'higher']
-    self.verti_sweeps = ['sweep', 'auto', 'angle 1', 'angle 2', 'angle 3', 'angle 4', 'angle 5', 'angle 6']
+    self.verti_sweeps = ['sweep', 'auto', 'angle1', 'angle2', 'angle3', 'angle4', 'angle5', 'angle6']
 
   # @override to add special support for t_power.
   def update_property(self, name: str, value) -> None:
@@ -367,7 +367,7 @@ class AcDevice(Device):
     else:
       self.queue_command('t_swing_angle', setting)
 
-  def get_verti_sweep(self) -> FanSpeed:
+  def get_verti_sweep(self) -> VertiSweep:
     control = self.get_property('t_control_value')
     if (control):
       return control_value.get_verti_sweep(control)
@@ -537,7 +537,7 @@ class AcDevice(Device):
     self.update_property('t_fan_speed', fan_speed)
 
     verti_sweep = control_value.get_verti_sweep(control)
-    self.update_property('t_swing_angle', fan_speed)
+    self.update_property('t_swing_angle', verti_sweep)
 
     work_mode = control_value.get_work_mode(control)
     self.update_property('t_work_mode', work_mode)
