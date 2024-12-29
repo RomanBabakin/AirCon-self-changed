@@ -359,20 +359,10 @@ class AcDevice(Device):
       return self.get_property('t_fan_speed')
 
   def set_verti_sweep(self, setting: VertiSweep) -> None:
-    control = self.get_property('t_control_value')
-    control = control_value.clear_up_change_flags(control)
-    if (control):
-      control = control_value.set_verti_sweep(control, setting)
-      self.queue_command('t_control_value', control)
-    else:
-      self.queue_command('t_swing_angle', setting)
+    self.queue_command('t_control_value', setting)
 
   def get_verti_sweep(self) -> VertiSweep:
-    control = self.get_property('t_control_value')
-    if (control):
-      return control_value.get_verti_sweep(control)
-    else:
-      return self.get_property('t_swing_angle')
+    self.get_property('t_swing_angle')
 
   def set_fan_vertical(self, setting: AirFlow) -> None:
     control = self.get_property('t_control_value')
